@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
 import { Q_EPISODES, gqlClient } from '@graphql'
-import { CardLoader, Pagination, Errors } from '@components'
+import { CardLoader, Errors, Pagination } from '@components'
 
 export const EpisodesPage = () => {
   const navigate = useNavigate()
@@ -77,7 +77,7 @@ export const EpisodesPage = () => {
       <Pagination
         page={page}
         pages={pages}
-        onPage={(page) => setSearch({ page })}
+        onPage={(p) => setSearch({ page: p })}
       />
     </div>
   )

@@ -6,9 +6,9 @@ import { gqlClient } from '@graphql/gqlClient'
 import {
   CardLoader,
   ControlsLoader,
+  Errors,
   Pagination,
   Tabs,
-  Errors,
 } from '@components'
 import { _useNavigate } from '@hooks'
 

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
 import { gqlClient } from '@graphql/gqlClient'
 import { Q_EPISODE } from '@graphql/queries'
-import { HeroLoader, Errors } from '@components'
+import { Errors, HeroLoader } from '@components'
 
 export const EpisodePage = () => {
   const nav = useNavigate()

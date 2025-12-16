@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
 
 import { gqlClient } from '@graphql/gqlClient'
-import { CardLoader, HeroLoader, Errors } from '@components'
+import { CardLoader, Errors, HeroLoader } from '@components'
 import { Q_CHARACTER } from '../graphql/queries'
 
 export const CharacterPage = () => {
