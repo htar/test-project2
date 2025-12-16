@@ -6,7 +6,6 @@ import {
   createRouter,
 } from '@tanstack/react-router'
 import { Layout } from '@components/Layout'
-import { lazy } from 'react'
 
 import {
   CharacterPage,

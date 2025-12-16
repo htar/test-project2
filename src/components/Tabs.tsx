@@ -34,7 +34,6 @@ export const Tabs = <T extends string>({
             key={t.value}
             role="tab"
             aria-selected={active}
-            disabled={t.disabled}
             onClick={() => select(t.value)}
             className={[
               'px-5 py-2 text-sm transition cursor-pointer',

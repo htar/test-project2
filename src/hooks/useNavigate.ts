@@ -1,4 +1,4 @@
-import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 
 export const _useNavigate = () => {
   const navigate = useNavigate()
@@ -9,7 +9,6 @@ export const _useNavigate = () => {
       q: string
       status: string
     }>,
-    navigateTo: string,
   ) => {
     navigate({
       search: (prev: any) => ({ ...prev, ...patch }),
