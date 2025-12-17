@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '@graphql/queryClient'
+import { queryClient } from '@graphql'
 import { App } from './App'
 import './styles.css'
 

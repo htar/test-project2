@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link, useNavigate, useParams } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 
-import { gqlClient } from '@graphql/gqlClient'
-import { CardLoader, Errors, HeroLoader } from '@components'
-import { Q_CHARACTER } from '../graphql/queries'
+import { Q_CHARACTER, gqlClient } from '@graphql'
+import { Errors, HeroLoader } from '@components'
+import { _useNavigate } from '@hooks'
 
 export const CharacterPage = () => {
-  const navigate = useNavigate()
+  const { setParam } = _useNavigate()
 
   const { id } = useParams({ from: '/characters/$id' })
 
@@ -15,12 +15,12 @@ export const CharacterPage = () => {
     queryFn: () => gqlClient.request(Q_CHARACTER, { id }),
   })
 
-  const c = query.data?.character
+  const character = query.data?.character
 
   return (
     <div className="space-y-8">
       <button
-        onClick={() => navigate({ to: '/characters' })}
+        onClick={() => setParam({}, '/characters')}
         className="text-sm text-neutral-600 hover:underline"
       >
         {'< back'}
@@ -34,30 +34,34 @@ export const CharacterPage = () => {
         <>
           <div className="grid gap-8 md:grid-cols-[420px_1fr]">
             <div className="overflow-hidden rounded-md border bg-neutral-50">
-              <img src={c.image} alt={c.name} className="w-full object-cover" />
+              <img
+                src={character?.image}
+                alt={character?.name}
+                className="w-full object-cover"
+              />
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-semibold">{c.name}</div>
+              <div className="text-3xl font-semibold">{character?.name}</div>
               <div className="space-y-2 text-sm text-neutral-700">
                 <div>
                   <span className="text-neutral-500">Gender:</span>{' '}
-                  <b>{c.gender || '-'}</b>
+                  <b>{character?.gender || '-'}</b>
                 </div>
                 <div>
                   <span className="text-neutral-500">Species:</span>{' '}
-                  <b>{c.species || '-'}</b>
+                  <b>{character?.species || '-'}</b>
                 </div>
                 <div>
                   <span className="text-neutral-500">Type:</span>{' '}
-                  <b>{c.type || '-'}</b>
+                  <b>{character?.type || '-'}</b>
                 </div>
                 <div>
                   <span className="text-neutral-500">Origin:</span>{' '}
-                  <b>{c.origin?.name || '-'}</b>
+                  <b>{character?.origin?.name || '-'}</b>
                 </div>
                 <div>
                   <span className="text-neutral-500">Location:</span>{' '}
-                  <b>{c.location?.name || '-'}</b>
+                  <b>{character?.location?.name || '-'}</b>
                 </div>
               </div>
             </div>
@@ -67,7 +71,7 @@ export const CharacterPage = () => {
             <h2 className="text-xl font-semibold">Episodes</h2>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {c.episode?.map((e: any) => (
+              {character?.episode?.map((e: any) => (
                 <Link
                   key={e.id}
                   to="/episodes/$id"

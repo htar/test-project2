@@ -1,8 +1,9 @@
-import * as React from 'react'
+import { useState } from 'react'
+import type { ReactNode } from 'react'
 
 export type TabItem<T extends string = string> = {
   value: T
-  label: React.ReactNode
+  label: ReactNode
 }
 
 type TabsProps<T extends string> = {
@@ -15,7 +16,7 @@ export const Tabs = <T extends string>({
   value,
   onChange,
 }: TabsProps<T>) => {
-  const [selected, setSelected] = React.useState<string>(value)
+  const [selected, setSelected] = useState<string>(value || items[0].value)
   const select = (v: T) => {
     setSelected(v)
     onChange?.(v)
@@ -37,7 +38,6 @@ export const Tabs = <T extends string>({
             onClick={() => select(t.value)}
             className={[
               'px-5 py-2 text-sm transition cursor-pointer',
-
               active ? 'bg-black text-white hover:bg-black' : 'text-black',
             ].join(' ')}
             type="button"

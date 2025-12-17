@@ -1,15 +1,14 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
+import { Link, useSearch } from '@tanstack/react-router'
 import { Q_EPISODES, gqlClient } from '@graphql'
 import { CardLoader, Errors, Pagination } from '@components'
+import { _useNavigate } from '@hooks'
 
 export const EpisodesPage = () => {
-  const navigate = useNavigate()
-  const search = useRouterState({ select: (s) => s.location.search as any })
+  const { setParam } = _useNavigate()
 
-  const page = search.page ?? 1
-  const q = search.q ?? ''
+  const { page = 1, q = '' } = useSearch({ strict: false })
 
   const variables = useMemo(() => ({ page, name: q || null }), [page, q])
 
@@ -23,14 +22,6 @@ export const EpisodesPage = () => {
   const results = query.data?.episodes?.results ?? []
   const pages = info?.pages ?? 0
 
-  const setSearch = (patch: Partial<{ page: number; q: string }>) => {
-    navigate({
-      to: '/episodes',
-      search: (prev: any) => ({ ...prev, ...patch }),
-      replace: true,
-    })
-  }
-
   return (
     <div className="space-y-6">
       <div className="space-y-2 max-w-sm">
@@ -38,7 +29,7 @@ export const EpisodesPage = () => {
         <input
           className="w-full rounded-md border px-3 py-2"
           value={q}
-          onChange={(e) => setSearch({ q: e.target.value, page: 1 })}
+          onChange={(e) => setParam({ q: e.target.value, page: 1 })}
           placeholder="Type an episode name…"
         />
       </div>
@@ -77,7 +68,7 @@ export const EpisodesPage = () => {
       <Pagination
         page={page}
         pages={pages}
-        onPage={(p) => setSearch({ page: p })}
+        onPage={(p: number) => setParam({ page: p })}
       />
     </div>
   )

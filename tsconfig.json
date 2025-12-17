@@ -30,7 +30,13 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@components": ["./src/components"],
+      "@lib": ["./src/lib"],
+      "@pages": ["./src/pages"],
+      "@graphql": ["./src/graphql"],
+      "@hooks": ["./src/hooks"],
+      "@types": ["./src/types"]
     }
   }
 }

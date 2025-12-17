@@ -2,10 +2,4 @@
 
 import { tanstackConfig } from '@tanstack/eslint-config'
 
-export default [
-  ...tanstackConfig,
-  { ignores: ['.history'] },
-    "rules": {
-      "@typescript-eslint/no-unnecessary-condition": "off"
-    }
-]
+export default [...tanstackConfig, { ignores: ['.history'] }]

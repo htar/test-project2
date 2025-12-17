@@ -1,26 +1,26 @@
 import { useNavigate } from '@tanstack/react-router'
 
+type TPath = Partial<{
+  page?: number
+  q?: string
+  status?: string
+}>
+
 export const _useNavigate = () => {
   const navigate = useNavigate()
 
-  const setSearch = (
-    patch: Partial<{
-      page: number
-      q: string
-      status: string
-    }>,
-  ) => {
+  const setParam = (patch: TPath, navigateTo?: string) => {
     navigate({
-      search: (prev: any) => ({ ...prev, ...patch }),
+      ...(navigateTo ? { to: navigateTo } : {}),
+      // @ts-ignore
+      search(prev: TPath): TPath {
+        return { ...prev, ...patch }
+      },
       replace: true,
     })
   }
 
-  const setParam = (k: 'q' | 'status', v: string, navigateTo: string) =>
-    setSearch({ [k]: v, page: 1, navigateTo }, navigateTo)
-
   return {
     setParam,
-    setSearch,
   }
 }

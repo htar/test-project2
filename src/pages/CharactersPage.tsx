@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link, useRouterState } from '@tanstack/react-router'
-import { Q_CHARACTERS } from '@graphql/queries'
-import { gqlClient } from '@graphql/gqlClient'
+import { Link, useSearch } from '@tanstack/react-router'
+import { Q_CHARACTERS, gqlClient } from '@graphql'
 import {
   CardLoader,
   ControlsLoader,
@@ -11,8 +10,9 @@ import {
   Tabs,
 } from '@components'
 import { _useNavigate } from '@hooks'
+import type { TTab } from '@types'
 
-const tabs = [
+const tabs: Array<TTab> = [
   { value: '', label: 'All' },
   { value: 'Alive', label: 'Alive' },
   { value: 'Dead', label: 'Dead' },
@@ -21,11 +21,9 @@ const tabs = [
 const queryKey = 'characters'
 
 export const CharactersPage = () => {
-  const search = useRouterState({ select: (s) => s.location.search as any })
-  const { setParam, setSearch } = _useNavigate()
-  const page = search.page ?? 1
-  const q = search.q ?? ''
-  const status = search?.status ?? ''
+  const { page = 1, q = '', status = '' } = useSearch({ strict: false })
+
+  const { setParam } = _useNavigate()
 
   const variables = useMemo(
     () => ({ page, name: q || null, status: status || null }),
@@ -53,7 +51,7 @@ export const CharactersPage = () => {
             <input
               className="w-full rounded-md border px-3 py-2"
               value={q}
-              onChange={(e) => setParam('q', e.target.value)}
+              onChange={(e) => setParam({ q: e.target.value })}
               placeholder="Type a name…"
             />
           </div>
@@ -61,7 +59,7 @@ export const CharactersPage = () => {
             <div className="text-sm text-neutral-600">Status</div>
             <Tabs
               value={status}
-              onChange={(s) => setParam('status', s)}
+              onChange={(s: string) => setParam({ status: s })}
               items={tabs}
             />
           </div>
@@ -104,7 +102,7 @@ export const CharactersPage = () => {
       <Pagination
         page={page}
         pages={pages}
-        onPage={(p) => setSearch({ page: p }, queryKey)}
+        onPage={(p) => setParam({ page: p })}
       />
     </div>
   )

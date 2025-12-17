@@ -22,7 +22,9 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
       <header className="border-b">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <div className="text-2xl font-semibold">
-            <Link to="/characters"  search={{ page: 1, q: '', status: '' }}>Logo</Link>
+            <Link to="/characters" search={{ page: 1, q: '', status: '' }}>
+              Logo
+            </Link>
           </div>
           <Tabs
             value={pathNameValue}

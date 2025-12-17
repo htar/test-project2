@@ -33,9 +33,9 @@ export const Pagination = ({ page, pages, onPage }: Props) => {
           ◀
         </button>
 
-        {items.map((it, idx) =>
+        {items.map((it) =>
           it === 'dots' ? (
-            <div key={idx} className="px-4 py-2 text-sm text-neutral-500">
+            <div key={it} className="px-4 py-2 text-sm text-neutral-500">
               …
             </div>
           ) : (

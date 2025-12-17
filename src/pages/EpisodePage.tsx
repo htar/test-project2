@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link, useNavigate, useParams } from '@tanstack/react-router'
-import { gqlClient } from '@graphql/gqlClient'
-import { Q_EPISODE } from '@graphql/queries'
+import { Link, useParams } from '@tanstack/react-router'
+import { Q_EPISODE, gqlClient } from '@graphql'
 import { Errors, HeroLoader } from '@components'
+import { _useNavigate } from '@hooks'
 
 export const EpisodePage = () => {
-  const nav = useNavigate()
   const { id } = useParams({ from: '/episodes/$id' })
+  const { setParam } = _useNavigate()
 
   const query = useQuery({
     queryKey: ['episode', id],
@@ -18,7 +18,7 @@ export const EpisodePage = () => {
   return (
     <div className="space-y-8">
       <button
-        onClick={() => nav({ to: '/episodes' })}
+        onClick={() => setParam({}, '/episodes')}
         className="text-sm text-neutral-600 hover:underline"
       >
         {'< back'}

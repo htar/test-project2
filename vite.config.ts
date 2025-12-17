@@ -7,6 +7,7 @@ import svgr from 'vite-plugin-svgr'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [viteReact(), tailwindcss(), svgr()],
@@ -19,6 +20,7 @@ export default defineConfig({
       '@pages': resolve(__dirname, './src/pages'),
       '@graphql': resolve(__dirname, './src/graphql'),
       '@hooks': resolve(__dirname, './src/hooks'),
+      '@types': resolve(__dirname, './src/types'),
     },
   },
 })

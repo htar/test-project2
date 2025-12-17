@@ -5,14 +5,13 @@ import {
   createRoute,
   createRouter,
 } from '@tanstack/react-router'
-import { Layout } from '@components/Layout'
-
 import {
   CharacterPage,
   CharactersPage,
   EpisodePage,
   EpisodesPage,
 } from '@pages'
+import { Layout } from './Layout.tsx'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -31,7 +30,9 @@ const validateSearch = (s: Record<string, unknown>) => ({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: () => <Navigate to="/characters" />,
+  component: () => (
+    <Navigate to="/characters" search={{ page: 1, q: '', status: '' }} />
+  ),
 })
 
 const charactersRoute = createRoute({
